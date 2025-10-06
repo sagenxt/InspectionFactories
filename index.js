@@ -9,6 +9,7 @@ const questionRoutes = require('./src/routes/questionRoutes');
 const answerRoutes = require('./src/routes/answerRoutes');
 const downloadRoutes = require('./src/routes/downloadRoutes');
 const applicationRoutes = require('./src/routes/applicationRoutes');
+const sectionRoutes = require('./src/routes/sectionRoutes');
 const inspectionReportRoutes = require('./src/routes/inspectionReportRoutes');
 
 app.use(express.json());
@@ -20,6 +21,7 @@ app.use('/api/answers', answerRoutes);
 app.use('/api/download', downloadRoutes);
 app.use('/api/applications', applicationRoutes);
 app.use('/api/inspection-reports', inspectionReportRoutes);
+app.use('/api/sections', sectionRoutes);
 
 const PORT = process.env.PORT || 3000;
 
