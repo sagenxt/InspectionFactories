@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const { sequelize } = require('./src/models');
 
@@ -12,6 +13,7 @@ const applicationRoutes = require('./src/routes/applicationRoutes');
 const sectionRoutes = require('./src/routes/sectionRoutes');
 const inspectionReportRoutes = require('./src/routes/inspectionReportRoutes');
 
+app.use(cors());
 app.use(express.json());
 
 // Mount routes
