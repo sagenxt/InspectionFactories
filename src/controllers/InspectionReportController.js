@@ -30,8 +30,9 @@ class InspectionReportController {
 
   async getInspectionReport(req, res) {
     try {
+      const userId = req.userId;
       const { inspectionReportId } = req.query;
-      const report = await this.inspectionReportService.getInspectionReport(inspectionReportId);
+      const report = await this.inspectionReportService.getInspectionReport(inspectionReportId, userId);
       res.json(report);
     } catch (err) {
       logger.error('[INSPECTION_REPORT][GET] Error: %s', err.stack);
@@ -58,7 +59,7 @@ class InspectionReportController {
       if (result.success) {
         res.json({ success: true });
       } else {
-        res.status(400).json({ error: result.message || 'Submission failed' });
+        res.status(400).json({ missing: result.missing});
       }
     } catch (err) {
       logger.error('[INSPECTION_REPORT][SUBMIT] Error: %s', err.stack);

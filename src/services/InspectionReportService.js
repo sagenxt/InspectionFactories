@@ -14,8 +14,8 @@ class InspectionReportService {
     return this.inspectionReportRepo.setInspectionReportStatus(id, 'complete');
   }
 
-  async getInspectionReport(id) {
-    return this.inspectionReportRepo.getInspectionReportById(id);
+  async getInspectionReport(id, userId) {
+    return this.inspectionReportRepo.getInspectionReportByIdAndUser(id, userId);
   }
 
   async getActiveInspectionReports(userId) {
