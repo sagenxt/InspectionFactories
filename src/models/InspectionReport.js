@@ -15,19 +15,19 @@ module.exports = (sequelize, DataTypes) => {
     },
     inspectionDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true
     },
     factoryRegistrationNumber: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     factoryName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     factoryAddress: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     }
   }, {
     timestamps: true
