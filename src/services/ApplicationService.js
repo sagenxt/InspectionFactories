@@ -69,8 +69,8 @@ class ApplicationService {
     return result;
   }
 
-  async getApplicationsByStatusAndUser(status, userId) {
-    return ApplicationRepo.getApplicationsByStatusAndUser(status, userId);
+  async getApplicationsByStatusAndUser(status, userId, page = 1, limit = 10) {
+    return ApplicationRepo.getApplicationsByStatusAndUser(status, userId, page, limit);
   }
 
   async getApplicationStatusSummary(userId, role) {

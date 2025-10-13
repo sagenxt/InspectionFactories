@@ -43,8 +43,10 @@ class InspectionReportController {
   async getActiveInspectionReports(req, res) {
     try {
       const userId = req.userId;
-      const reports = await this.inspectionReportService.getActiveInspectionReports(userId);
-      res.json(reports);
+      const page = parseInt(req.query.page, 10) || 1;
+      const limit = parseInt(req.query.limit, 10) || 10;
+      const result = await this.inspectionReportService.getActiveInspectionReports(userId, page, limit);
+      res.json(result);
     } catch (err) {
       logger.error('[INSPECTION_REPORT][ACTIVE] Error: %s', err.stack);
       res.status(500).json({ error: 'Failed to get active inspection reports' });

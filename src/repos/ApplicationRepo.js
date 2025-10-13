@@ -59,8 +59,21 @@ class ApplicationRepo {
     });
   }
 
-  async getApplicationsByStatusAndUser(status, userId) {
-    return Application.findAll({ where: { currentStatus: status, userId } });
+  async getApplicationsByStatusAndUser(status, userId, page = 1, limit = 10) {
+    const offset = (page - 1) * limit;
+    const where = { currentStatus: status, userId };
+    const { count, rows } = await Application.findAndCountAll({
+      where,
+      offset,
+      limit,
+      order: [['createdAt', 'DESC']]
+    });
+    return {
+      data: rows,
+      total: count,
+      page,
+      limit
+    };
   }
 
   async getStatusSummaryByUser(userId) {

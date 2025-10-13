@@ -21,8 +21,21 @@ class InspectionReportRepo {
       return InspectionReport.findOne({ where: { id, userId } }).order([['createdAt', 'DESC']] );
   }
 
-  async getActiveInspectionReports(userId) {
-    return InspectionReport.findAll({ where: { userId } });
+  async getActiveInspectionReports(userId, page = 1, limit = 10) {
+    const offset = (page - 1) * limit;
+    const where = { userId };
+    const { count, rows } = await InspectionReport.findAndCountAll({
+      where,
+      offset,
+      limit,
+      order: [['createdAt', 'DESC']]
+    });
+    return {
+      data: rows,
+      total: count,
+      page,
+      limit
+    };
   }
 
   async getDraftInspectionReportByUser(userId) {

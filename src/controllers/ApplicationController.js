@@ -106,11 +106,13 @@ class ApplicationController {
     try {
       const userId = req.userId;
       const { status } = req.query;
+      const page = parseInt(req.query.page, 10) || 1;
+      const limit = parseInt(req.query.limit, 10) || 10;
       if (!status) {
         return res.status(400).json({ error: 'status is required' });
       }
-      const applications = await this.applicationService.getApplicationsByStatusAndUser(status, userId);
-      res.json(applications);
+      const result = await this.applicationService.getApplicationsByStatusAndUser(status, userId, page, limit);
+      res.json(result);
     } catch (err) {
       logger.error('[APPLICATION][BY_STATUS] Error: %s', err.stack);
       res.status(500).json({ error: 'Failed to fetch applications by status' });

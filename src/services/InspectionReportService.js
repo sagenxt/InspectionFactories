@@ -18,10 +18,8 @@ class InspectionReportService {
     return this.inspectionReportRepo.getInspectionReportByIdAndUser(id, userId);
   }
 
-  async getActiveInspectionReports(userId) {
-    const report = await this.inspectionReportRepo.getActiveInspectionReports(userId);
-    if (!report) return [];
-    return report;
+  async getActiveInspectionReports(userId, page = 1, limit = 10) {
+    return this.inspectionReportRepo.getActiveInspectionReports(userId, page, limit);
   }
 
   async submitInspectionReport(userId, inspectionReportId) {
