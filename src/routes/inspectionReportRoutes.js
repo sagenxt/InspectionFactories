@@ -9,6 +9,7 @@ router.post('/complete', AuthMiddleware.authenticate, (req, res) => inspectionRe
 router.get('/', AuthMiddleware.authenticate, (req, res) => inspectionReportController.getInspectionReport(req, res));
 router.get('/active', AuthMiddleware.authenticate, (req, res) => inspectionReportController.getActiveInspectionReports(req, res));
 router.post('/submit', AuthMiddleware.authenticate, (req, res) => inspectionReportController.submitInspectionReport(req, res));
+router.get('/status-summary', AuthMiddleware.authenticate, (req, res) => inspectionReportController.getInspectionReportStatusSummary(req, res));
+router.post('/', AuthMiddleware.authenticate, (req, res) => inspectionReportController.createInspectionReport(req, res));
 
 module.exports = router;
-

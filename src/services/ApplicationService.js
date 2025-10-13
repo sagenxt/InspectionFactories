@@ -72,6 +72,10 @@ class ApplicationService {
   async getApplicationsByStatusAndUser(status, userId) {
     return ApplicationRepo.getApplicationsByStatusAndUser(status, userId);
   }
+
+  async getApplicationStatusSummary(userId, role) {
+    return ApplicationRepo.getStatusSummary({ userId, role });
+  }
 }
 
 module.exports = ApplicationService;

@@ -62,6 +62,31 @@ class ApplicationRepo {
   async getApplicationsByStatusAndUser(status, userId) {
     return Application.findAll({ where: { currentStatus: status, userId } });
   }
+
+  async getStatusSummaryByUser(userId) {
+    const { Application } = require('../models');
+    const { fn, col } = require('sequelize');
+    return Application.findAll({
+      attributes: ['currentStatus', [fn('COUNT', col('id')), 'count']],
+      where: { userId },
+      group: ['currentStatus'],
+    });
+  }
+
+  async getStatusSummary({ userId, role }) {
+    const { Application } = require('../models');
+    const { fn, col } = require('sequelize');
+    const where = {};
+    if (role === 'DISTRICT_OFFICER' && userId) {
+      where.userId = userId;
+    }
+    // For ADMIN, no user filter
+    return Application.findAll({
+      attributes: ['currentStatus', [fn('COUNT', col('id')), 'count']],
+      where,
+      group: ['currentStatus'],
+    });
+  }
 }
 
 module.exports = new ApplicationRepo();

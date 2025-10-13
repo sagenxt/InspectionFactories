@@ -93,7 +93,8 @@ class ApplicationController {
   async getApplicationStatusSummary(req, res) {
     try {
       const userId = req.userId;
-      const summary = await this.applicationService.getApplicationStatusSummaryByUser(userId);
+      const role = req.userRole;
+      const summary = await this.applicationService.getApplicationStatusSummary(userId, role);
       res.json(summary);
     } catch (err) {
       logger.error('[APPLICATION][STATUS_SUMMARY] Error: %s', err.stack);

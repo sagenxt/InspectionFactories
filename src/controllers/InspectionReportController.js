@@ -66,7 +66,41 @@ class InspectionReportController {
       res.status(500).json({ error: 'Failed to submit inspection report' });
     }
   }
+
+  async getInspectionReportStatusSummary(req, res) {
+    try {
+      const userId = req.userId;
+      const role = req.userRole;
+      const summary = await this.inspectionReportService.getInspectionReportStatusSummary(userId, role);
+      res.json(summary);
+    } catch (err) {
+      logger.error('[INSPECTION_REPORT][STATUS_SUMMARY] Error: %s', err.stack);
+      res.status(500).json({ error: 'Failed to fetch inspection report status summary' });
+    }
+  }
+
+  async createInspectionReport(req, res) {
+    try {
+      const userId = req.userId;
+      const {
+        inspectionDate,
+        factoryRegistrationNumber,
+        factoryName,
+        ...metadata
+      } = req.body;
+      const report = await this.inspectionReportService.createInspectionReport({
+        userId,
+        inspectionDate,
+        factoryRegistrationNumber,
+        factoryName,
+        metadata
+      });
+      res.status(201).json(report);
+    } catch (err) {
+      logger.error('[INSPECTION_REPORT][CREATE] Error: %s', err.stack);
+      res.status(500).json({ error: 'Failed to create inspection report' });
+    }
+  }
 }
 
 module.exports = InspectionReportController;
-

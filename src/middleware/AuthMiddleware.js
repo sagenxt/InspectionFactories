@@ -8,10 +8,10 @@ class AuthMiddleware {
     jwt.verify(token, process.env.JWT_SECRET || 'secret', (err, decoded) => {
       if (err) return res.status(403).json({ error: 'Invalid token' });
       req.userId = decoded.userId;
+      req.userRole = decoded.role;
       next();
     });
   }
 }
 
 module.exports = AuthMiddleware;
-

@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     factoryAddress: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    metadata: {
+      type: DataTypes.JSONB, // Use JSONB for Postgres, JSON for MySQL/SQLite, TEXT for others
+      allowNull: true
     }
   }, {
     timestamps: true

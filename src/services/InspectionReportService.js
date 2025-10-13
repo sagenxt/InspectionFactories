@@ -43,7 +43,20 @@ class InspectionReportService {
     await this.inspectionReportRepo.setInspectionReportStatus(inspectionReportId, 'complete');
     return { success: true };
   }
+
+  async getInspectionReportStatusSummary(userId, role) {
+    return this.inspectionReportRepo.getStatusSummary({ userId, role });
+  }
+
+  async createInspectionReport({ userId, inspectionDate, factoryRegistrationNumber, factoryName, metadata }) {
+    return this.inspectionReportRepo.createInspectionReport({
+      userId,
+      inspectionDate,
+      factoryRegistrationNumber,
+      factoryName,
+      metadata
+    });
+  }
 }
 
 module.exports = InspectionReportService;
-
