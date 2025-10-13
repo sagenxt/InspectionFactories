@@ -45,7 +45,10 @@ class InspectionReportService {
   }
 
   async getInspectionReportStatusSummary(userId, role) {
-    return this.inspectionReportRepo.getStatusSummary({ userId, role });
+    const statusSummary = await this.inspectionReportRepo.getStatusSummary({ userId, role });
+    const totalCount = await this.inspectionReportRepo.getTotalCount({ userId, role });
+    const monthlyCount = await this.inspectionReportRepo.getMonthlyCount({ userId, role });
+    return { statusSummary, totalCount, monthlyCount };
   }
 
   async createInspectionReport({ userId, inspectionDate, factoryRegistrationNumber, factoryName, metadata }) {
