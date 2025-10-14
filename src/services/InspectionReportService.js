@@ -1,5 +1,4 @@
 const InspectionReportRepo = require('../repos/InspectionReportRepo');
-const { Section, Question, Answer } = require('../models');
 
 class InspectionReportService {
   constructor() {
@@ -57,6 +56,16 @@ class InspectionReportService {
       factoryName,
       metadata
     });
+  }
+
+  async getInspectionReportsByStatus(status, userId, role, page, limit) {
+    if(status != null){
+        const validStatuses = ['draft', 'in_progress', 'complete'];
+        if (!validStatuses.includes(status)) {
+            throw new Error('Invalid status value');
+        }
+    }
+    return this.inspectionReportRepo.getByStatus(status, userId, role, page, limit);
   }
 }
 

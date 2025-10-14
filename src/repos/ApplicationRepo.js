@@ -61,7 +61,10 @@ class ApplicationRepo {
 
   async getApplicationsByStatusAndUser(status, userId, page = 1, limit = 10) {
     const offset = (page - 1) * limit;
-    const where = { currentStatus: status, userId };
+    const where = { userId };
+    if (status) {
+      where.currentStatus = status;
+    }
     const { count, rows } = await Application.findAndCountAll({
       where,
       offset,

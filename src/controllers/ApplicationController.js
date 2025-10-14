@@ -108,9 +108,9 @@ class ApplicationController {
       const { status } = req.query;
       const page = parseInt(req.query.page, 10) || 1;
       const limit = parseInt(req.query.limit, 10) || 10;
-      if (!status) {
-        return res.status(400).json({ error: 'status is required' });
-      }
+      // if (!status) {
+      //   return res.status(400).json({ error: 'status is required' });
+      // }
       const result = await this.applicationService.getApplicationsByStatusAndUser(status, userId, page, limit);
       res.json(result);
     } catch (err) {

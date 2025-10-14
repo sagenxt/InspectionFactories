@@ -7,6 +7,8 @@ const AuthMiddleware = require('../middleware/AuthMiddleware');
 router.post('/start', AuthMiddleware.authenticate, (req, res) => inspectionReportController.startInspectionReport(req, res));
 router.post('/complete', AuthMiddleware.authenticate, (req, res) => inspectionReportController.completeInspectionReport(req, res));
 router.get('/', AuthMiddleware.authenticate, (req, res) => inspectionReportController.getInspectionReport(req, res));
+router.get('/filter', AuthMiddleware.authenticate, (req, res) => inspectionReportController.getInspectionReportsByFilters(req, res));
+
 router.get('/active', AuthMiddleware.authenticate, (req, res) => inspectionReportController.getActiveInspectionReports(req, res));
 router.post('/submit', AuthMiddleware.authenticate, (req, res) => inspectionReportController.submitInspectionReport(req, res));
 router.get('/status-summary', AuthMiddleware.authenticate, (req, res) => inspectionReportController.getInspectionReportStatusSummary(req, res));

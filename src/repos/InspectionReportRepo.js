@@ -18,10 +18,10 @@ class InspectionReportRepo {
   }
 
   async getInspectionReportByIdAndUser(id, userId) {
-      return InspectionReport.findOne({
-        where: { id, userId },
-        order: [['createdAt', 'DESC']]
-      });
+    return InspectionReport.findOne({
+      where: { id, userId },
+      order: [['createdAt', 'DESC']]
+    });
   }
 
   async getActiveInspectionReports(userId, page = 1, limit = 10) {
@@ -89,6 +89,31 @@ class InspectionReportRepo {
     const { Op } = require('sequelize');
     where.createdAt = { [Op.gte]: startOfMonth, [Op.lte]: endOfMonth };
     return InspectionReport.count({ where });
+  }
+
+  async getByStatus(status, userId, role, page, limit) {
+    const offset = (page - 1) * limit;
+    const where = { status };
+
+    // If user is not admin, show only their reports
+    if (role !== 'ADMIN') {
+      where.userId = userId;
+    }
+
+    const { count, rows } = await InspectionReport.findAndCountAll({
+      where,
+      limit,
+      offset,
+      order: [['createdAt', 'DESC']],
+    });
+
+    return {
+      total: count,
+      page,
+      limit,
+      reports: rows,
+      totalPages: Math.ceil(count / limit)
+    };
   }
 }
 

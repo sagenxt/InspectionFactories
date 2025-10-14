@@ -103,6 +103,26 @@ class InspectionReportController {
       res.status(500).json({ error: 'Failed to create inspection report' });
     }
   }
+
+  async getInspectionReportsByFilters(req, res) {
+    try {
+      const { status } = req.query;
+      const page = parseInt(req.query.page, 10) || 1;
+      const limit = parseInt(req.query.limit, 10) || 10;
+      const userId = req.userId;
+      const role = req.userRole;
+
+      if (!status) {
+        return res.status(400).json({ error: 'Status parameter is required' });
+      }
+
+      const reports = await this.inspectionReportService.getInspectionReportsByStatus(status, userId, role, page, limit);
+      res.json(reports);
+    } catch (err) {
+      logger.error('[INSPECTION_REPORT][GET_BY_STATUS] Error: %s', err.stack);
+      res.status(500).json({ error: err.message });
+    }
+  }
 }
 
 module.exports = InspectionReportController;

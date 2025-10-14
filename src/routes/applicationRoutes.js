@@ -10,6 +10,6 @@ router.get('/:applicationId/status-history', AuthMiddleware.authenticate, (req, 
 router.post('/', AuthMiddleware.authenticate, (req, res) => applicationController.createApplication(req, res));
 router.get('/details', AuthMiddleware.authenticate, (req, res) => applicationController.getApplicationDetails(req, res));
 router.get('/status-summary', AuthMiddleware.authenticate, (req, res) => applicationController.getApplicationStatusSummary(req, res));
-router.get('/by-status', AuthMiddleware.authenticate, (req, res) => applicationController.getApplicationsByStatus(req, res));
+router.get('/', AuthMiddleware.authenticate, (req, res) => applicationController.getApplicationsByStatus(req, res));
 
 module.exports = router;
