@@ -24,7 +24,7 @@ class ApplicationService {
   async createApplication(inspectionReportId, externalId, userId) {
 
     const inspectionReport = await this.inspectionReportRepo.getInspectionReportByIdAndUser(inspectionReportId, userId);
-    if(!inspectionReport || inspectionReport.applicationNumber !== userId) {
+    if(!inspectionReport || inspectionReport.applicationNumber !== null) {
         throw new Error('Inspection Report not found or does not belong to the user');
     }
     // Check if any application exists for this inspectionReportId and userId
