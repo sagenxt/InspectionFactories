@@ -88,7 +88,7 @@ class InspectionReportController {
         inspectionDate,
         factoryRegistrationNumber,
         factoryName,
-        ...metadata
+        metadata
       } = req.body;
       const report = await this.inspectionReportService.createInspectionReport({
         userId,

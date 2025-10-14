@@ -18,7 +18,10 @@ class InspectionReportRepo {
   }
 
   async getInspectionReportByIdAndUser(id, userId) {
-      return InspectionReport.findOne({ where: { id, userId } }).order([['createdAt', 'DESC']] );
+      return InspectionReport.findOne({
+        where: { id, userId },
+        order: [['createdAt', 'DESC']]
+      });
   }
 
   async getActiveInspectionReports(userId, page = 1, limit = 10) {
