@@ -49,6 +49,10 @@ class InspectionReportRepo {
     return InspectionReport.update({ status }, { where: { id } });
   }
 
+  async setInspectionApplicationNumber(id, applicationNumber) {
+    return InspectionReport.update({ applicationNumber }, { where: { id } });
+  }
+
   async getStatusSummaryByUser(userId) {
     return InspectionReport.findAll({
       attributes: ['status', [fn('COUNT', col('id')), 'count']],

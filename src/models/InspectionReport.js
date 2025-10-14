@@ -32,6 +32,11 @@ module.exports = (sequelize, DataTypes) => {
     metadata: {
       type: DataTypes.JSONB, // Use JSONB for Postgres, JSON for MySQL/SQLite, TEXT for others
       allowNull: true
+    },
+    applicationNumber: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      unique: true
     }
   }, {
     timestamps: true
