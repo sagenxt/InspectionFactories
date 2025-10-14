@@ -44,7 +44,7 @@ class ApplicationService {
       userId
     });
     await ApplicationRepo.createStatusHistory(app.id, 'Show Cause Notice', 'Application created', userId);
-    await this.inspectionReportRepo.setInspectionApplicationNumber(inspectionReportId, 'under_review');
+    await this.inspectionReportRepo.setInspectionApplicationNumber(inspectionReportId, externalId);
     return app;
   }
 
