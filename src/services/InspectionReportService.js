@@ -1,4 +1,7 @@
 const InspectionReportRepo = require('../repos/InspectionReportRepo');
+const Section = require('../models').Section;
+const Question = require('../models').Question;
+const Answer = require('../models').Answer;
 
 class InspectionReportService {
   constructor() {
