@@ -30,16 +30,30 @@ class InspectionReportService {
     const answers = await Answer.findAll({ where: { inspectionReportId } });
     const answeredIds = new Set(answers.map(a => a.questionId));
     const missing = [];
+
     for (const section of sections) {
       const sectionQuestions = questions.filter(q => q.sectionId === section.id);
       const missingQuestions = sectionQuestions.filter(q => !answeredIds.has(q.id));
-      if (missingQuestions.length > 0) {
+
+      if (section.formType === 'A' && missingQuestions.length > 0) {
+        // Section A is mandatory
+        missing.push({ section: section.name, questions: missingQuestions.map(q => q.id) });
+      } else if (section.name === 'B') {
+        // Section B: If any question is answered, all must be answered
+        const answeredInSectionB = sectionQuestions.some(q => answeredIds.has(q.id));
+        if (answeredInSectionB && missingQuestions.length > 0) {
+          missing.push({ section: section.name, questions: missingQuestions.map(q => q.id) });
+        }
+      } else if (missingQuestions.length > 0) {
+        // General case for other sections
         missing.push({ section: section.name, questions: missingQuestions.map(q => q.id) });
       }
     }
+
     if (missing.length > 0) {
       return { success: false, missing };
     }
+
     await this.inspectionReportRepo.setInspectionReportStatus(inspectionReportId, 'complete');
     return { success: true };
   }
