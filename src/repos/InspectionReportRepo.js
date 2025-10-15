@@ -9,7 +9,7 @@ class InspectionReportRepo {
       factoryRegistrationNumber,
       factoryName,
       metadata,
-      status: 'draft'
+      status: 'yetToStart'
     });
   }
 
