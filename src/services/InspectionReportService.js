@@ -77,7 +77,7 @@ class InspectionReportService {
 
   async getInspectionReportsByStatus(status, userId, role, page, limit) {
     if(status != null){
-        const validStatuses = ['draft', 'in_progress', 'complete'];
+        const validStatuses = ['draft', 'yetToStart', 'complete'];
         if (!validStatuses.includes(status)) {
             throw new Error('Invalid status value');
         }
