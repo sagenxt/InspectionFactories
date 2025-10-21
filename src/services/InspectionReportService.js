@@ -38,7 +38,7 @@ class InspectionReportService {
       if (section.formType === 'A' && missingQuestions.length > 0) {
         // Section A is mandatory
         missing.push({ section: section.name, questions: missingQuestions.map(q => q.id) });
-      } else if (section.name === 'B') {
+      } else if (section.formType === 'B') {
         // Section B: If any question is answered, all must be answered
         const answeredInSectionB = sectionQuestions.some(q => answeredIds.has(q.id));
         if (answeredInSectionB && missingQuestions.length > 0) {

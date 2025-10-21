@@ -1,8 +1,10 @@
 const AnswerRepo = require('../repos/AnswerRepo');
+const inspectionReportRepo = require('../repos/InspectionReportRepo');
 
 class AnswerService {
   constructor() {
     this.answerRepo = new AnswerRepo();
+    this.inspectionReportRepo = new inspectionReportRepo();
   }
 
   async saveAnswers(userId, inspectionReportId, answers) {
@@ -33,6 +35,8 @@ class AnswerService {
         notes: ans.notes
       });
     }
+    await this.inspectionReportRepo.setInspectionReportStatus(inspectionReportId, "draft");
+
     return { success: true };
   }
 }
